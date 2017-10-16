@@ -88,8 +88,8 @@ static inline unsigned long mfspr(unsigned long spr)
 }
 
 /* forward decleation */
-inline void vPortDisableInterrupts( void );
-inline void vPortEnableInterrupts( void );
+/*inline*/ void vPortDisableInterrupts( void );
+/*inline*/ void vPortEnableInterrupts( void );
 
 /* 
  * Initialise the stack of a task to look exactly as if a call to 
@@ -244,12 +244,12 @@ static void prvSetupTimerInterrupt( void )
     mtspr(SPR_SR, mfspr(SPR_SR) | SPR_SR_TEE);
 }
 
-inline void vPortDisableInterrupts( void ) 
+/*inline*/ void vPortDisableInterrupts( void ) 
 {
 	mtspr(SPR_SR, mfspr(SPR_SR) & ~(SPR_SR_TEE|SPR_SR_IEE));	// Tick, interrupt stop
 }
 
-inline void vPortEnableInterrupts( void )
+/*inline*/ void vPortEnableInterrupts( void )
 {
 	mtspr(SPR_SR, mfspr(SPR_SR) | (SPR_SR_TEE|SPR_SR_IEE));		// Tick, interrupt start
 }
